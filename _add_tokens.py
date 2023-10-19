@@ -3,12 +3,12 @@ import sys
 
 
 def add_tokens(src_model, dest_model):
-    from transformers import GPT2Tokenizer, GPT2LMHeadModel
+    from transformers import AutoTokenizer, AutoModel
 
     print("Loading model ", src_model)
-    model = GPT2LMHeadModel.from_pretrained(src_model)
+    model = AutoModel.from_pretrained(src_model)
     print("Loading tokenizer ", src_model)
-    tokenizer = GPT2Tokenizer.from_pretrained(src_model)
+    tokenizer = AutoTokenizer.from_pretrained(src_model)
     
     print("Adding new tokens")
     tokenizer.add_special_tokens(
@@ -19,7 +19,7 @@ def add_tokens(src_model, dest_model):
     print("Save tokenizer ", dest_model)
     tokenizer.save_pretrained(dest_model)
     print("Save model ", dest_model)
-    model.save_pretrained(dest_model)
+    model.save_pretrained(dest_model, safe_serialization=True)
 
 if __name__=='__main__':
     if (len(sys.argv) < 3):
